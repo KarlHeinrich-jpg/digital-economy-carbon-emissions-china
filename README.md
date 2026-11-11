@@ -2,7 +2,7 @@
 
 **An Empirical Analysis of the Impact of the Digital Economy on Carbon Emissions: Evidence from China's Provincial Panel Data**
 
-Mingyu Fan, Yile Wang (corresponding author)  
+Mingyu Fan (ORCID 0009-0009-5504-3079), Yile Wang (corresponding author, ORCID 0009-0008-3195-5631)  
 School of Economics, Beijing Technology and Business University, Beijing 102488, China
 
 This repository is the replication package and archival copy of the manuscript: the processed provincial panel, the spatial weight matrices, the estimation code, the LaTeX source, and the compiled PDF. It corresponds to the Data Availability Statement in the paper.
