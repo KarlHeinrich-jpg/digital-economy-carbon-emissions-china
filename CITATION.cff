@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper."
+title: "An Empirical Analysis of the Impact of the Digital Economy on Carbon Emissions: Evidence from China's Provincial Panel Data"
+authors:
+  - family-names: Fan
+    given-names: Mingyu
+    orcid: "https://orcid.org/0009-0009-5504-3079"
+  - family-names: Wang
+    given-names: Yile
+year: 2026
+version: 1.0.0
+url: "https://github.com/KarlHeinrich-jpg/digital-economy-carbon-emissions-china"
+license: MIT
+type: software

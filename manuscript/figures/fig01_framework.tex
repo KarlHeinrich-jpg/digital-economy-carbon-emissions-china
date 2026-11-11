@@ -1,0 +1,117 @@
+% Figure 1 -- the design of the paper as a single chain.
+% Vertical black-box style: numbered stages, dashed stress-test group,
+% side-by-side robust/conditional panels, dashed identification band.
+% Compile with: xelatex fig01_framework.tex
+\documentclass[border=6pt]{standalone}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}[
+  BoldFont       = Times New Roman Bold,
+  ItalicFont     = Times New Roman Italic,
+  BoldItalicFont = Times New Roman Bold Italic]
+\usepackage{tikz}
+\usetikzlibrary{calc, arrows.meta, positioning, fit}
+
+\newcommand{\sig}[1]{\textsuperscript{#1}}
+
+\begin{document}
+\begin{tikzpicture}[
+  x=1mm, y=-1mm,
+  font=\footnotesize,
+  box/.style   = {draw, thin, align=left, text width=146mm, inner sep=2.4mm,
+                  fill=white, anchor=north west},
+  half/.style  = {draw, thin, align=left, text width=69mm, inner sep=2.4mm,
+                  fill=white, anchor=north west},
+  band/.style  = {draw, dashed, thin, align=left, text width=146mm,
+                  inner sep=2.4mm, fill=white, anchor=north west},
+  grp/.style   = {draw, dashed, thin, inner sep=2.6mm},
+  hd/.style    = {font=\small\bfseries, anchor=south west, inner sep=0pt},
+  arr/.style   = {-{Latex[length=2.2mm,width=1.6mm]}, thin},
+  arrd/.style  = {-{Latex[length=2.2mm,width=1.6mm]}, thin, dashed},
+  lbl/.style   = {font=\scriptsize\itshape, fill=white, inner sep=1.5pt,
+                  align=left, anchor=west},
+]
+
+%% ---------------------------------------------------------------- 1
+\node[hd] (h1) at (0,0) {1.\quad Data and construct mapping};
+\node[box] (s1) at (0,2) {%
+Thirty provinces, 2011--2022: balanced panel (\textit{N} = 360); Tibet, Hong Kong,
+Macao and Taiwan excluded. \textbf{DEI}: 13 indicators in three dimensions
+(digital infrastructure, digital industry, digital inclusive finance).
+\textbf{CEI}: four indicators (emission intensity, per capita emissions,
+emission density, energy intensity). Entropy + CRITIC--Spearman combined
+weights; PCA scores as alternative measures; both indices enter in natural
+logs.};
+
+%% ---------------------------------------------------------------- 2
+\node[hd] (h2) at ([yshift=-9mm]s1.south west) {2.\quad Unified estimation protocol};
+\node[box] (s2) at ([yshift=-2mm]h2.south west) {%
+\textbf{Baseline (H1).} Log--log two-way fixed effects; income, fiscal capacity,
+density, financial development, urbanization and marketization added in pairs,
+giving a five-column ladder; standard errors clustered by province.
+\textbf{Channels (H2a, H2b).} First-link regressions from DEI to industrial
+structure and to energy efficiency. \textbf{Space (H3).} Spatial Durbin models
+under a contiguity--economic composite weight and a pure economic-distance
+weight. \textbf{Dynamics.} System GMM with Windmeijer-corrected errors.};
+\draw[arr] (s1.south) -- node[lbl, xshift=3mm] {combined weights,\\log transformation} (s2.north);
+
+%% ---------------------------------------------------------------- 3
+\node[half] (t1) at ([yshift=-13mm]s2.south west) {%
+(i)~\textbf{Measurement.}\quad Replace the CEI, the DEI, or both with PCA scores.};
+\node[half] (t2) at ([xshift=76mm]t1.north west) {%
+(ii)~\textbf{Outcome definition.}\quad Composite carbon pressure versus carbon
+intensity alone (ln CE).};
+\node[half] (t3) at ([yshift=-3mm]t1.south west) {%
+(iii)~\textbf{Sample and timing.}\quad Exclude the four municipalities; 1\%
+winsorization; lagged DEI.};
+\node[half] (t4) at ([yshift=-3mm]t2.south west) {%
+(iv)~\textbf{Neighbor definition.}\quad Contiguity--economic composite weight
+versus pure economic distance.};
+\node[grp, fit=(t1)(t2)(t3)(t4)] (s3) {};
+\node[hd] at ([yshift=1.5mm]s3.north west) {3.\quad Four-fold stress test};
+\draw[arr] (s2.south) -- node[lbl, xshift=3mm] {sign, size and\\significance} (s3.north);
+
+%% ---------------------------------------------------------------- 4a / 4b
+\coordinate (j) at ([yshift=-8mm]s3.south);
+\node[half] (r1) at ([yshift=-22mm]s3.south west) {%
+\textbf{4a.\quad Robust core}\\[1pt]
+Baseline −0.278\sig{***} (SE 0.092). PCA replacement −0.207\sig{***},
+−0.293\sig{*}, −0.156\sig{*}. Lagged DEI −0.303\sig{***}; winsorized
+−0.286\sig{***}. Energy efficiency at both links (0.336\sig{**},
+−0.335\sig{***}). Economic-distance spillover: direct −0.403\sig{***},
+indirect −0.364\sig{**}.};
+\node[half] (r2) at ([xshift=76mm]r1.north west) {%
+\textbf{4b.\quad Conditional results}\\[1pt]
+Carbon intensity alone −0.009 (n.s.). GMM short-run −0.119 (n.s.),
+persistence 0.919\sig{***}. Composite-weight indirect effect −0.156 (n.s.).
+The regional interaction does not reject homogeneity; the western −0.688\sig{**}
+is descriptive.};
+\draw (s3.south) -- (j);
+\draw[arr] (j) -- (r1.north);
+\draw[arr] (j) -- (r2.north);
+\node[lbl, anchor=north west] at ([xshift=3mm, yshift=-3mm]s3.south) {which findings\\survive};
+
+%% ---------------------------------------------------------------- 5
+\node[hd] (h5) at ([yshift=-9mm]r1.south west) {5.\quad Policy translation};
+\node[box] (s5) at ([yshift=-2mm]h5.south west) {%
+Green-computing standards for data centres and networks →
+energy-efficiency retrofits in energy-intensive industries →
+western infrastructure targeting with carbon-intensity thresholds for
+industrial transfer → composite and intensity measures reported
+side by side.};
+\draw[arr] (r1.south) -- node[lbl, xshift=3mm] {policy uses\\the robust core} (s5.north);
+\draw[arrd] (r2.south) -- node[lbl, xshift=3mm, pos=0.62] {conditional use}
+            ([xshift=-7mm]s5.north east);
+
+%% ---------------------------------------------------------------- band
+\node[band] (band) at ([yshift=-7mm]s5.south west) {%
+\textbf{Identification.}\quad Province and year fixed effects absorb
+time-invariant endowments and nationwide shocks; lagged DEI, PCA measures, two
+neighbor definitions and the dynamic specification probe the remaining
+variation. The coefficients are read as conditional associations of stable
+sign, with magnitudes that depend on the measure and on how neighbors are
+defined.};
+\draw[arr] (s5.south) -- (band.north);
+
+\end{tikzpicture}
+\end{document}
